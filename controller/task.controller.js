@@ -1,11 +1,10 @@
-const TasksServ = require("../service/tarefas.service");
+const TasksServ = require("./../service/tarefas.service");
 
 const tasksServ = new TasksServ();
 
 class TasksController {
   getTasks = async (req, res) => {
     const tasks = await tasksServ.findAll();
-
     res.send(tasks);
   };
 
