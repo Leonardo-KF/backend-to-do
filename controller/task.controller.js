@@ -9,7 +9,9 @@ class TasksController {
   };
 
   getTasksById = async (req, res) => {
-    const task = await tasksServ.findById(req.params.id);
+    const task = await tasksServ.findById(req.params.id).catch(() => {
+      res.send({message: "Não foi possivel encontrar a tarefa"})
+    })
 
     res.send(task);
   };
@@ -27,7 +29,7 @@ class TasksController {
       .catch(() => {
         res
           .status(500)
-          .send({ error: `Erro no servidor, tente novamente mais tarde` });
+          .send({ error: `Erro no servidor, não foi possivel criar a tarefa!` });
       });
   };
 
@@ -44,7 +46,7 @@ class TasksController {
       .catch((err) => {
         res
           .status(500)
-          .send({ message: `Erro no servidor, tente novamente mais tarde` });
+          .send({ message: `Erro no servidor, não foi possivel editar a tarefa!` });
       });
   };
 
